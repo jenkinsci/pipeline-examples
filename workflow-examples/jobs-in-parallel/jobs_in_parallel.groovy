@@ -8,6 +8,10 @@ def branches = [:]
 
 for (int i = 0; i < 4; i++) {
   branches["branch${i}"] = {
+//Parameters:
+//param1 : an example string parameter for the triggered job.
+//dummy: a parameter used to prevent triggering the job with the same paramters value. this parameter has to accept a different value
+//each time the job is triggered.
     build job: 'test_jobs', parameters: [[$class: 'StringParameterValue', name: 'param1', value:   
       'test_param'], [$class: 'StringParameterValue', name:'dummy', value: "${i}"]]
     }
