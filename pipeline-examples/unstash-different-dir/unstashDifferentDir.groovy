@@ -27,7 +27,7 @@ node('second-node') {
     }
 
     // Look, no output directory under the root!
-    // pwd() outputs the current directory Workflow is running in.
+    // pwd() outputs the current directory Pipeline is running in.
     sh "ls -la ${pwd()}"
 
     // And look, output directory is there under first-stash!

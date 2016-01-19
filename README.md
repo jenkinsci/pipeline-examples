@@ -1,12 +1,12 @@
 # Introduction
 
-This repository is a home for snippets, tips and tricks and examples of scripting for the [Jenkins Workflow plugin](https://github.com/jenkinsci/workflow-plugin/blob/master/README.md).
+This repository is a home for snippets, tips and tricks and examples of scripting for the [Jenkins Pipeline plugin](https://github.com/jenkinsci/workflow-plugin/blob/master/README.md).
 
 # Layout
 
 The repository is broken up into four directories currently:
 
-* *workflow-examples* - for general Workflow examples.
+* *pipeline-examples* - for general Pipeline examples.
 * *global-library-examples* - for examples of how to write and use the global library on a Jenkins master.
 * *jenkinsfile-examples* - for examples of using `Jenkinsfile`s checked into repositories.
 * *docs* - for documentation, guides and other non-code content.

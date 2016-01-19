@@ -5,7 +5,7 @@ a map of steps to be run with the parallel command.
 
 # Caveats
 
-* Due to limitations in Workflow - i.e.,
+* Due to limitations in Pipeline - i.e.,
 [JENKINS-26481](https://issues.jenkins-ci.org/browse/JENKINS-26481) -
 it's not really possible to use Groovy closures or syntax that depends
 on closures, so you can't do the Groovy standard of using
@@ -16,4 +16,3 @@ school counter-based for loops.
 * There is no need for the generation of the step itself to be in a
 separate method. I've opted to do so here to show how to return a step
 closure from a method.
-

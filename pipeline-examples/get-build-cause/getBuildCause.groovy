@@ -1,4 +1,4 @@
-// There is no direct access to the build Causes from the workflow, but you can
+// There is no direct access to the build Causes from the Pipeline, but you can
 // get this by using the `currentBuild.rawBuild` variable, as shown below.
 
 // Get all Causes for the current build
