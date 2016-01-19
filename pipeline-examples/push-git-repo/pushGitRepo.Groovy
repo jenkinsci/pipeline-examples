@@ -1,7 +1,7 @@
 // This is currently the best way to push a tag (or a branch, etc) from a
-// Workflow job. It's not ideal - https://issues.jenkins-ci.org/browse/JENKINS-28335
+// Pipeline job. It's not ideal - https://issues.jenkins-ci.org/browse/JENKINS-28335
 // is an open JIRA for getting the GitPublisher Jenkins functionality working
-// with Workflow.
+// with Pipeline.
 
 // credentialsId here is the credentials you have set up in Jenkins for pushing
 // to that repository using username and password.
