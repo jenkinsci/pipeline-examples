@@ -11,5 +11,4 @@ withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'MyID',
     sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@<REPO> --tags')
 }
 
-// There isn't as trivial a way to override the ssh key if you want to push that
-// way, but I hope to add that here once I find a reasonable approach.
+// For SSH private key authentication, try the sshagent step from the SSH Agent plugin.
