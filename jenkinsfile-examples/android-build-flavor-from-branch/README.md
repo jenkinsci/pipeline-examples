@@ -7,8 +7,8 @@ Useful if you have a lot of apps with a lot of flavors in a single code base.
 
 ## Instructions
 
-* *Setup a multibranch Jenkins Pipeline build.  Have it scan for branches based on a naming convention. This example uses QA_<flavor-name>, where <flavor-name> is the name of your flavor.
-* *Place this JenkinsFile in the root of your project.
-* *Push a branch matching your naming convention.
+* Setup a multibranch Jenkins Pipeline build.  Have it scan for branches based on a naming convention. This example uses QA_<flavor-name>, where <flavor-name> is the name of your flavor.
+* Place this JenkinsFile in the root of your project.
+* Push a branch matching your naming convention.
 
 That's it!
