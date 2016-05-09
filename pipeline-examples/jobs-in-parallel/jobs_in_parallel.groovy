@@ -7,13 +7,14 @@ def branches = [:]
 //and jenkins will unite them into a single run of the job
 
 for (int i = 0; i < 4; i++) {
+  def index = i //if we tried to use i below, it would equal 4 in each job execution.
   branches["branch${i}"] = {
 //Parameters:
 //param1 : an example string parameter for the triggered job.
 //dummy: a parameter used to prevent triggering the job with the same parameters value. this parameter has to accept a different value
 //each time the job is triggered.
     build job: 'test_jobs', parameters: [[$class: 'StringParameterValue', name: 'param1', value:
-      'test_param'], [$class: 'StringParameterValue', name:'dummy', value: "${i}"]]
+      'test_param'], [$class: 'StringParameterValue', name:'dummy', value: "${index}"]]
     }
 }
 parallel branches
