@@ -17,7 +17,7 @@ This is a collection of tips, advice, gotchas and other best practices for using
 * Use `checkout scm` to automatically checkout current revision of branch
 * Use `$env.BRANCH_NAME` variable if you have logical difference in your flow between branches, i.e. to distinguish different behavior for production-ready branches versus sandbox or pull request branches.
 * For `Jenkinsfile`s, make sure to put `#!groovy` at the top of the file so that IDEs, GitHub diffs, etc properly detect the language and do syntax highlighting for you.
-** But note that this doesn't mean you can run "groovy Jenkinsfile" or "./Jenkinsfile" - Pipeline doesn't run standalone! This is just a trick to help in your IDE, etc.
+ * But note that this doesn't mean you can run "groovy Jenkinsfile" or "./Jenkinsfile" - Pipeline doesn't run standalone! This is just a trick to help in your IDE, etc.
 
 # Groovy gotchas
 * Don’t have the Groovy interpreter making blocking i/o calls, i.e., `HTTPClient` and the like - these can cause real problems with resumability, and also require a lot of explicit whitelisting of methods in the Script Security plugin, which is not ideal.
@@ -28,7 +28,7 @@ This is a collection of tips, advice, gotchas and other best practices for using
 
 # Pipeline script development tips
 * When developing new flows, you can often iterate faster with an inline pipeline, rather than running from SCM. You can use the 'load' operation to load common utility methods from common pipelines, and then as you finish out methods, commit them to the utility flows.  This lets you strike a balance between having traceability on commits and being able to move fast.
-** NOTE: this isn't possible with Multibranch pipelines, since those *have* to pull their script from SCM completely, so you will probably want to do your initial development iteration on a single branch using this approach before moving to `Jenkinsfile`s.
+ * NOTE: this isn't possible with Multibranch pipelines, since those *have* to pull their script from SCM completely, so you will probably want to do your initial development iteration on a single branch using this approach before moving to `Jenkinsfile`s.
 
 
 
