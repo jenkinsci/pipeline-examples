@@ -74,9 +74,8 @@ node('node') {
         }
 
 
-    catch (caughtError) {
+    catch (err) {
 
-        err = caughtError
         currentBuild.result = "FAILURE"
 
             mail body: "project build error: ${err}" ,
@@ -85,16 +84,7 @@ node('node') {
             subject: 'project build failed',
             to: 'zzzz@yyyyy.com'
 
-        }
-
-    finally {
-
-
-        /* Must re-throw exception to propagate error */
-        if (err) {
-            throw err
-        }
-
+        throw err
     }
 
 }
