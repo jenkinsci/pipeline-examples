@@ -8,5 +8,8 @@ def causes = currentBuild.rawBuild.getCauses()
 // if present.
 def specificCause = currentBuild.rawBuild.getCause(hudson.model.Cause$UserIdCause)
 
+// If you see errors regarding 'Scripts not permitted to use method...' approve 
+// these scripts at JENKINS_URL/scriptApproval/ - the UI shows the blocked methods 
+
 // See the Javadoc for Cause for more information on what's in Causes, etc at:
 // http://javadoc.jenkins-ci.org/hudson/model/class-use/Cause.html
