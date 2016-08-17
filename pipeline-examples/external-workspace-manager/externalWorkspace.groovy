@@ -13,10 +13,21 @@ node('linux') {
 }
 
 // on a different node, labeled 'test', perform testing using the same workspace as previously
+// at the end, if the build have passed, delete the workspace
 node('test') {
     // compute complete workspace path, from current node to the allocated disk
     exws(extWorkspace) {
-        // run tests in the same workspace that the project was built
-        sh 'mvn test'
+        try {
+            // run tests in the same workspace that the project was built
+            sh 'mvn test'
+        } catch (e) {
+            // if any exception occurs, mark the build as failed
+            currentBuild.result = 'FAILURE'
+            throw e
+        } finally {
+            // perform workspace cleanup only if the build have passed
+            // if the build has failed, the workspace will be kept
+            step([$class: 'WsCleanup', cleanWhenFailure: false])
+        }
     }
 }
