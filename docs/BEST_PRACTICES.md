@@ -16,7 +16,7 @@ This is a collection of tips, advice, gotchas and other best practices for using
 # `Jenkinsfile`s and Multibranch
 * Use `checkout scm` to automatically checkout current revision of branch
 * Use `$env.BRANCH_NAME` variable if you have logical difference in your flow between branches, i.e. to distinguish different behavior for production-ready branches versus sandbox or pull request branches.
-* For `Jenkinsfile`s, make sure to put `#!groovy` at the top of the file so that IDEs, GitHub diffs, etc properly detect the language and do syntax highlighting for you.
+* For `Jenkinsfile`s, make sure to put `#!/usr/bin/env groovy` at the top of the file so that IDEs, GitHub diffs, etc properly detect the language and do syntax highlighting for you.
  * But note that this doesn't mean you can run "groovy Jenkinsfile" or "./Jenkinsfile" - Pipeline doesn't run standalone! This is just a trick to help in your IDE, etc.
 
 # Groovy gotchas
