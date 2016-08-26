@@ -24,7 +24,10 @@ This is a collection of tips, advice, gotchas and other best practices for using
 * Beware `for (Foo f: foos)` loops and Groovy closure-style operators like `.each` and the like. They will not work right in normal Pipeline script contexts where Pipeline steps are involved directly.
 * If you need to do that kind of thing to make your scripting make sense, do it in methods annotated with `@NonCPS`. These methods will not be CPS-transformed, so can do some things that just can't be done in the serializable/resumable CPS context.
 * Don’t use the Groovy scripting in place of shell scripting - work coming for the ability to run a Groovy step on the node as with the normal Groovy plugin build step, but until then, shell out, even if it’s just to do `sh 'groovy foo.groovy'`.
-* If you really need `Map`s in your normal Pipeline scripts, consider using arrays of `[key,value]` instead - this way, you can use C-style for loops (i.e., `for (int i = 0; i < mapArray.size(); i++) { def entry = mapArray.get(i); ... }`. 
+* If you really need `Map`s in your normal Pipeline scripts, consider using arrays of `[key,value]` instead - this way, you can use C-style for loops (i.e., `for (int i = 0; i < mapArray.size(); i++) { def entry = mapArray.get(i); ... }`. You can create such an array from a `Map` using this helper method:
+```groovy
+@NonCPS def entries(m) {m.collect {k, v -> [k, v]}}
+```
 
 # Pipeline script development tips
 * When developing new flows, you can often iterate faster with an inline pipeline, rather than running from SCM. You can use the 'load' operation to load common utility methods from common pipelines, and then as you finish out methods, commit them to the utility flows.  This lets you strike a balance between having traceability on commits and being able to move fast.
