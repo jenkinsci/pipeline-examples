@@ -1,4 +1,4 @@
-// See https://github.com/jenkinsci/workflow-plugin/tree/master/cps-global-lib#defining-global-functions
+// See https://github.com/jenkinsci/workflow-cps-global-lib-plugin
 
 // The call(body) method in any file in workflowLibs.git/vars is exposed as a
 // method with the same name as the file.
