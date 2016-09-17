@@ -20,3 +20,8 @@ All contributions are under the MIT license, like Jenkins itself.
 # Pull requests
 
 We want them!
+
+# External resources
+
+* [Pipeline scripts collection of the Docker team](https://github.com/docker/jenkins-pipeline-scripts)
+* [Pipeline scripts collection of the Fabric8 team](https://github.com/fabric8io/jenkins-pipeline-library)
