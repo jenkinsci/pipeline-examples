@@ -1,0 +1,174 @@
+#!groovy
+
+//
+// This DEMO shows how to write a cross-platform(Windows/Android/Linux/iOS/MacOSX) build.
+// Pipeline:
+//      1.Source code checkout -> 2.Cross-Platform Build -> 3.Archiving each platform's binaries -> 4.Cleanup
+//
+// We assume the project's structure is like this:
+//
+// --project_root
+//   --build
+//     -- android-build.sh (Script to build for Android platform, will output binaries into 'dist/android/armeabi-v7a')
+//     -- iphoneos-build.sh (Script to build for iOS, will output binaries into 'dist/ios')
+//     -- macos-build.sh (Script to build for MacOSX, will output binaries into 'dist/macos')
+//   --src
+//     -- CMakeLists.txt
+//     -- (Your source files structured by CMake or anyother)
+//   --dist
+//     -- (Directory to hold each platform distribution binaries.)
+//     -- android
+//     -- win32
+//     -- ios
+//     -- macos
+//   --symbols
+//     -- win32 (Dir to hold PDB symbols generate from CMake)
+//
+
+node('master') {
+
+    //
+    //  #1
+    //  Fresh checkout your cross-platform project onto the master node.
+    //  NOTE To avoid checkout on each platform again and again, we just checkout once on the master node,
+    //       then stash/unstash onto the target platform.
+    //
+    stage('Checkout') {
+        timeout(time: 10, unit: 'SECONDS') {
+            // Checkout source code onto master node.
+            // You can generate the 'checkout' command by using "Project->Pipeline Syntax->Snippet Generator"
+            checkout(GENERATE BY YOURSELF)
+            
+            // Stash all source files for another platform usage.
+            // NOTE: the stashed file's scope is in node 'master', so we can unstash it later.
+            stash name: 'YOUR_CROSSPLATFORM_SOURCES'
+        }
+    }
+
+    //
+    // #2
+    // Build on each platform.
+    //
+    stage('Build Cross-Platform Libraries') {
+        timeout(5) {
+            parallel (
+                "win32-stream" : {
+                    node('win32') {
+                        // This will copy all files packaged in YOUR_CROSSPLATFORM_SOURCES to agent workspace root directory.
+                        // To copy to another agent directory, see [https://github.com/BillHoo/pipeline-examples/tree/master/pipeline-examples/unstash-different-dir]
+                        unstash 'YOUR_CROSSPLATFORM_SOURCES'
+                        
+                        // Change current directory to "build", and run CMake.
+                        // NOTE we assume your CMake INSTALL target will put output binaries into 'dist/win32' for later usage.
+                        dir('build') {
+                            bat 'cmake ..\\src'
+                            bat 'cmake --build . --config RelWithDebInfo --target INSTALL'   
+                        }
+                    }
+                },
+            
+                "android-stream" : {
+                    node('android') {
+                        unstash 'YOUR_CROSSPLATFORM_SOURCES'
+                        
+                        // Change current directory to "build", and run Android build script.
+                        dir('build') {
+                            sh './android-build.sh'
+                        }
+                    }
+                },
+            
+                "ios-stream" : {
+                    node('ios') {
+                        unstash 'YOUR_CROSSPLATFORM_SOURCES'
+                        
+                        // Change current directory to "build", and run iOS build script.
+                        dir('build') {
+                            sh './iphoneos-build.sh'
+                        }
+                    }
+                },
+            
+                "mac-stream" : {
+                    node('mac') {
+                        unstash 'YOUR_CROSSPLATFORM_SOURCES'
+                        
+                        // Change current directory to "build", and run MacOSX build script.
+                        dir('build') {
+                            sh './macos-build.sh'
+                        }
+                    }
+                }
+            ) // parallel
+        } // Timeout
+    } // State cross-platform build
+    
+    //
+    // #3
+    // Cross-Platform Libraries Distribution
+    //
+    stage('Libraries Distribution') {
+        parallel(
+            "win32-archiving" : {
+                node('win32') {
+                    step([$class: 'ArtifactArchiver', artifacts: 'dist\\win32\\*', fingerprint: true])
+                    step([$class: 'ArtifactArchiver', artifacts: 'symbols\\win32\\*', fingerprint: true])
+                }
+            },
+            
+            "android-archiving" : {
+                node('android') {
+                    step([$class: 'ArtifactArchiver', artifacts: 'dist/android/armeabi-v7a/*', fingerprint: true])
+                }
+            },
+            
+            "ios-archiving" : {
+                node('ios') {
+                    step([$class: 'ArtifactArchiver', artifacts: 'dist/ios/*', fingerprint: true])
+                }
+            },
+            
+            "mac-archiving" : {
+                node('mac') {
+                    step([$class: 'ArtifactArchiver', artifacts: 'dist/macos/*', fingerprint: true])
+                }
+            }
+        ) // parallel
+    }
+    
+    //
+    // #4
+    // Final cleanup
+    // Why we need this cleaup?
+    // stash/unstash command just copy files from source to dest without any version control stuff like Git/SVN did.
+    // So all files will stay in agent workspace if we dont't remove it, and may cause issues when we launch next build.
+    //
+    stage('Cleanup') {
+        parallel(
+            "win32-clean" : {
+                node('win32') {
+                    deleteDir()
+                }
+            },
+            
+            "android-clean" : {
+                node('android') {
+                    deleteDir()
+                }
+            },
+            
+            "ios-clean" : {
+                node('ios') {
+                    deleteDir()
+                }
+            },
+            
+            "mac-clean" : {
+                node('mac') {
+                    deleteDir()
+                }
+            }
+        ) // parallel
+    } // Cleanup
+    
+} // node master
