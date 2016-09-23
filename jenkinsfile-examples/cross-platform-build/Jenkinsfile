@@ -55,7 +55,7 @@ node('master') {
                 "win32-stream" : {
                     node('win32') {
                         // This will copy all files packaged in YOUR_CROSSPLATFORM_SOURCES to agent workspace root directory.
-                        // To copy to another agent directory, see [https://github.com/BillHoo/pipeline-examples/tree/master/pipeline-examples/unstash-different-dir]
+                        // To copy to another agent directory, see [https://github.com/jenkinsci/pipeline-examples]
                         unstash 'YOUR_CROSSPLATFORM_SOURCES'
                         
                         // Change current directory to "build", and run CMake.
