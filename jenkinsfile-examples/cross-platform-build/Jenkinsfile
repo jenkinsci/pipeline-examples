@@ -111,26 +111,26 @@ node('master') {
         parallel(
             "win32-archiving" : {
                 node('win32') {
-                    step([$class: 'ArtifactArchiver', artifacts: 'dist\\win32\\*', fingerprint: true])
-                    step([$class: 'ArtifactArchiver', artifacts: 'symbols\\win32\\*', fingerprint: true])
+                    archiveArtifacts artifacts: 'dist\\win32\\*', fingerprint: true
+                    archiveArtifacts artifacts: 'symbols\\win32\\*', fingerprint: true
                 }
             },
             
             "android-archiving" : {
                 node('android') {
-                    step([$class: 'ArtifactArchiver', artifacts: 'dist/android/armeabi-v7a/*', fingerprint: true])
+                    archiveArtifacts artifacts: 'dist/android/armeabi-v7a/*', fingerprint: true
                 }
             },
             
             "ios-archiving" : {
                 node('ios') {
-                    step([$class: 'ArtifactArchiver', artifacts: 'dist/ios/*', fingerprint: true])
+                    archiveArtifacts artifacts: 'dist/ios/*', fingerprint: true
                 }
             },
             
             "mac-archiving" : {
                 node('mac') {
-                    step([$class: 'ArtifactArchiver', artifacts: 'dist/macos/*', fingerprint: true])
+                    archiveArtifacts artifacts: 'dist/macos/*', fingerprint: true
                 }
             }
         ) // parallel
