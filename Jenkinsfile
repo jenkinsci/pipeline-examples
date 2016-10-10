@@ -52,7 +52,6 @@ THE SOFTWARE.
 
 node('node') {
 
-
     currentBuild.result = "SUCCESS"
 
     try {
