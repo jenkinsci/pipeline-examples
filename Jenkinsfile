@@ -14,7 +14,7 @@ This repository
     155
 
 nimbals1/pipeline-examples forked from jenkinsci/pipeline-examples
-Code
+Code 
 Pull requests 0
 Projects 0
 Pulse
@@ -115,6 +115,4 @@ node('node') {
 }
 
     Contact GitHub API Training Shop Blog About 
-
     © 2016 GitHub, Inc. Terms Privacy Security Status Help 
-
