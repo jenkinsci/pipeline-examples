@@ -14,5 +14,5 @@ node {
     stage "Archive build output"
     
     // Archive the build output artifacts.
-    archive excludes: 'output/*.md', includes: 'output/*.txt'
+    archiveArtifacts artifacts: 'output/*.txt', excludes: 'output/*.md'
 }
