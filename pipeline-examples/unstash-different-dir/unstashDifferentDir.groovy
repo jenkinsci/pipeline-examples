@@ -16,7 +16,7 @@ node('first-node') {
 }
 
 // Next, we'll make a new directory on a second node, and unstash the original
-// into that new directory, rather than into the root of the biuld.
+// into that new directory, rather than into the root of the build.
 stage "second step on second node"
 
 // Run on a node with the "second-node" label.
