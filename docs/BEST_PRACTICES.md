@@ -4,7 +4,7 @@ This is a collection of tips, advice, gotchas and other best practices for using
 # General tips and advice
 * Do everything that makes sense there within `stage`s. This will make your builds easier to visualize, debug, etc.
 * Do all real work that involves running a shell script, building, etc, within `node` blocks, so that it actually happens on a real executor, rather than a flyweight executor on the master node.
-* Get your flows from source control - `Jenkinsfile`s, loading libraries, global [CPS](https://en.wikipedia.org/wiki/Continuation-passing_style) library, you name it - but if you pull the main flow from SCM (i.e., Multibranch with `Jenkinsfile`s or `Pipeline script from SCM`), be aware that you may need to whitelist a lot of method calls in the script security plugin. [JENKINS-28178](https://issues.jenkins-ci.org/browse/JENKINS-28178) has been created to simplify this, but you'll still want to be careful with that functionality due to the open security it implies.
+* Get your flows from source control - `Jenkinsfile`s, loading libraries, global [CPS](https://en.wikipedia.org/wiki/Continuation-passing_style) library, you name it - but if you pull the main flow from SCM (i.e., Multibranch with `Jenkinsfile`s or `Pipeline from SCM`), be aware that you may need to whitelist a lot of method calls in the script security plugin. [JENKINS-28178](https://issues.jenkins-ci.org/browse/JENKINS-28178) has been created to simplify this, but you'll still want to be careful with that functionality due to the open security it implies.
 * `input` shouldn’t be done within a `node` block - that eats up two executors waiting on the `input` feedback, both the flyweight executor that’s used for the `input` itself and the real executor used by the `node` block, which won’t free up until after the `input` itself has completed.
 
 # Parallelism
@@ -21,14 +21,14 @@ This is a collection of tips, advice, gotchas and other best practices for using
 
 # Groovy gotchas
 * Don’t have the Groovy interpreter making blocking i/o calls, i.e., `HTTPClient` and the like - these can cause real problems with resumability, and also require a lot of explicit whitelisting of methods in the Script Security plugin, which is not ideal.
-* Beware `for (Foo f: foos)` loops and Groovy closure-style operators like `.each` and the like. They will not work right in normal Pipeline script contexts where Pipeline steps are involved directly.
+* Beware `for (Foo f: foos)` loops and Groovy closure-style operators like `.each` and the like. They will not work right in normal Scripted Pipeline contexts where Pipeline steps are involved directly.
 * If you need to do that kind of thing to make your scripting make sense, do it in methods annotated with `@NonCPS`. These methods will not be CPS-transformed, so can do some things that just can't be done in the serializable/resumable CPS context.
 * Don’t use the Groovy scripting in place of shell scripting - work coming for the ability to run a Groovy step on the node as with the normal Groovy plugin build step, but until then, shell out, even if it’s just to do `sh 'groovy foo.groovy'`.
-* If you really need `Map`s in your normal Pipeline scripts, consider using arrays of `[key,value]` instead - this way, you can use C-style for loops (i.e., `for (int i = 0; i < mapArray.size(); i++) { def entry = mapArray.get(i); ... }`. You can create such an array from a `Map` using this helper method:
+* If you really need `Map`s in your normal Scripted Pipelines, consider using arrays of `[key,value]` instead - this way, you can use C-style for loops (i.e., `for (int i = 0; i < mapArray.size(); i++) { def entry = mapArray.get(i); ... }`. You can create such an array from a `Map` using this helper method:
 ```groovy
 @NonCPS def entries(m) {m.collect {k, v -> [k, v]}}
 ```
 
-# Pipeline script development tips
+# Scripted Pipeline development tips
 * When developing new flows, you can often iterate faster with an inline pipeline, rather than running from SCM. You can use the 'load' operation to load common utility methods from common pipelines, and then as you finish out methods, commit them to the utility flows.  This lets you strike a balance between having traceability on commits and being able to move fast.
  * NOTE: this isn't possible with Multibranch pipelines, since those *have* to pull their script from SCM completely, so you will probably want to do your initial development iteration on a single branch using this approach before moving to `Jenkinsfile`s.
