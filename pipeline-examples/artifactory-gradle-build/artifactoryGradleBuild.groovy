@@ -14,7 +14,7 @@ node {
     rtGradle.deployer repo:'ext-release-local', server: server
     rtGradle.resolver repo:'remote-repos', server: server
 
-    stage 'Exec Gradle'
+    stage 'Gradle build'
     def buildInfo = rtGradle.run rootDir: "gradle-examples/4/gradle-example-ci-server/", buildFile: 'build.gradle', tasks: 'clean artifactoryPublish'
 
     stage 'Publish build info'

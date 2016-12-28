@@ -14,7 +14,7 @@ node {
     rtMaven.deployer releaseRepo:'libs-release-local', snapshotRepo:'libs-snapshot-local', server: server
     rtMaven.resolver releaseRepo:'libs-release', snapshotRepo:'libs-snapshot', server: server
 
-    stage 'Exec Maven'
+    stage 'Maven build'
     def buildInfo = rtMaven.run pom: 'maven-example/pom.xml', goals: 'clean install'
 
     stage 'Publish build info'
