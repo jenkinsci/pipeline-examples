@@ -1,11 +1,13 @@
 #!groovy
 
-//
 node {
     stage('configFile Plugin') {
 
-        // assign the ID of config file to a variable
-        // this is optional as ID can be used directly within 'configFileProvider' step too.
+        // 'ID' refers to alpha-numeric value generated automatically by Jenkins.
+        // This code snippet assumes that the config file is stored in Jenkins.
+
+        // help to assign the ID of config file to a variable, this is optional 
+        // as ID can be used directly within 'configFileProvider' step too.
         def mycfg_file = '<substitute-alpha-numeric-value-cfgfille-here-within-quotes>'
 
         // whether referencing the config file as ID (directly) or via user-defined 
@@ -25,5 +27,4 @@ node {
             echo " =========== ~~~~~~~~~~~~ ============ "
         }
     }
-  }
 }
