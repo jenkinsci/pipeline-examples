@@ -1,4 +1,4 @@
-[configFile Provider plugin] (https://plugins.jenkins.io/config-file-provider) enables provisioning of various types of configuration files. Plugin works in such a way as to make the configuration available for the entire duration of the build across all the build agents that are used to execute the build.
+[configFile Provider plugin](https://plugins.jenkins.io/config-file-provider) enables provisioning of various types of configuration files. Plugin works in such a way as to make the configuration available for the entire duration of the build across all the build agents that are used to execute the build.
 
 Common scenarios that demand the usage of configuration files:
 
