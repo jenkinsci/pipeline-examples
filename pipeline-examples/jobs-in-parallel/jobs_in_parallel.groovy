@@ -11,8 +11,8 @@ for (int i = 0; i < 4; i++) {
   branches["branch${i}"] = {
 //Parameters:
 //param1 : an example string parameter for the triggered job.
-//dummy: a parameter used to prevent triggering the job with the same parameters value. this parameter has to accept a different value
-//each time the job is triggered.
+//dummy: a parameter used to prevent triggering the job with the same parameters value.
+//       this parameter has to accept a different value each time the job is triggered.
     build job: 'freestyle', parameters: [
       string(name: 'param1', value:'test_param'),
       string(name:'dummy', value: "${index}")]

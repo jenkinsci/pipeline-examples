@@ -1,6 +1,6 @@
-// This shows a simple build wrapper example, using the AnsiColorBuildWrapper plugin.
+// This shows a simple build wrapper example, using the AnsiColor plugin.
 node {
-    // This is the current syntax for invoking a build wrapper, naming the class.
+    // This displays colors using the 'xterm' ansi color map.
     ansiColor('xterm') {
         // Just some echoes to show the ANSI color.
         stage "\u001B[31mI'm Red\u001B[0m Now not"
