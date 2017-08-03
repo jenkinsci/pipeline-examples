@@ -7,4 +7,13 @@ node {
     withSonarQubeEnv {
         sh "./gradlew clean sonarqube"
     }
+    
+    // later...when you want to continue, 
+    // but only after the quality gate has passed
+    timeout(time: 1, unit: 'HOURS') {
+        def qg = waitForQualityGate()
+        if (qg.status != 'OK') {
+            error "Pipeline aborted dur to quality gate failure: ${qg.status}"  
+        }
+    }
 }    
