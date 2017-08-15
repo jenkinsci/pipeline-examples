@@ -5,10 +5,13 @@
 
 // credentialsId here is the credentials you have set up in Jenkins for pushing
 // to that repository using username and password.
-withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'MyID', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
-
+withCredentials([usernamePassword(credentialsId: 'git-pass-credentials-ID', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
     sh("git tag -a some_tag -m 'Jenkins'")
     sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@<REPO> --tags')
 }
 
 // For SSH private key authentication, try the sshagent step from the SSH Agent plugin.
+sshagent (credentials: ['git-ssh-credentials-ID']) {
+    sh("git tag -a some_tag -m 'Jenkins'")
+    sh('git push <REPO> --tags')
+}

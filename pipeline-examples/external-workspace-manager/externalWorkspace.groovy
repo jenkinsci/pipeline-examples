@@ -27,7 +27,7 @@ node('test') {
         } finally {
             // perform workspace cleanup only if the build have passed
             // if the build has failed, the workspace will be kept
-            step([$class: 'WsCleanup', cleanWhenFailure: false])
+            cleanWs cleanWhenFailure: false
         }
     }
 }

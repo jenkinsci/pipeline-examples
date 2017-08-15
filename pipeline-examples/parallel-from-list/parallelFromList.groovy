@@ -6,20 +6,8 @@
 def stringsToEcho = ["a", "b", "c", "d"]
 
 // The map we'll store the parallel steps in before executing them.
-def stepsForParallel = [:]
-
-// The standard 'for (String s: stringsToEcho)' syntax also doesn't work, so we
-// need to use old school 'for (int i = 0...)' style for loops.
-for (int i = 0; i < stringsToEcho.size(); i++) {
-    // Get the actual string here.
-    def s = stringsToEcho.get(i)
-
-    // Transform that into a step and add the step to the map as the value, with
-    // a name for the parallel step as the key. Here, we'll just use something
-    // like "echoing (string)"
-    def stepName = "echoing ${s}"
-    
-    stepsForParallel[stepName] = transformIntoStep(s)
+def stepsForParallel = stringsToEcho.collectEntries {
+    ["echoing ${it}" : transformIntoStep(it)]
 }
 
 // Actually run the steps in parallel - parallel takes a map as an argument,
