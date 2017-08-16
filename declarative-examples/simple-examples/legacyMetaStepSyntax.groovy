@@ -11,7 +11,10 @@ pipeline {
          * This syntax works fine in Declarative
          */
         step([$class: 'ArtifactArchiver', artifacts: 'msg.out', fingerprint: true])
-        sh('echo ONSLAVE=$ONSLAVE')
+
+        // Parenthesis are optional when a single parameter is used
+        sh('echo $PATH')
+        sh 'echo $PATH'
       }
     }
   }

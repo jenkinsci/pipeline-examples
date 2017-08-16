@@ -1,6 +1,9 @@
 pipeline {
 
-  //Run everything on an agent that has docker daemon and git installed
+  /*
+   * Run everything on an existing agent configured with a label 'docker'.
+   * This agent will need docker, git and a jdk installed at a minimum.
+   */
   agent {
     node {
       label 'docker'

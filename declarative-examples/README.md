@@ -1,17 +1,17 @@
-# Declarartive Examples
+# Declarative Examples
 
 This folder is a home for snippets, tips and tricks and examples for writing Declarative Pipelines with the
 [Jenkins Pipeline plugin](https://github.com/jenkinsci/workflow-plugin/blob/master/README.md).
 
 # Layout
 
-The repository is broken up into four directories currently:
+The repository is broken up into two directories currently:
 
 * *simple-examples* - simple pipelines with one or two stages that illustrate or test a single part of Declarative Pipeline
 * *jenkinsfile-examples* - for examples of using `Jenkinsfile`s checked into repositories.
 
 
-Please put your script into its own directory under the appropriate directory above, with a README.md file included explaining what your script does or shows. Make sure your script is commented so that others can understand how it works, why it works, etc.
+When contributing new examples please put them into the appropriate directory above. Make sure your script is commented so that others can understand how it works, why it works, etc.
 
 # License
 
