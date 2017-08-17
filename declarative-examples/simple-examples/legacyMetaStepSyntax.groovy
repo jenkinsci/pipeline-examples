@@ -12,7 +12,7 @@ pipeline {
          */
         step([$class: 'ArtifactArchiver', artifacts: 'msg.out', fingerprint: true])
 
-        // Parenthesis are optional when a single parameter is used
+        // Parentheses are optional when a single parameter is used
         sh('echo $PATH')
         sh 'echo $PATH'
       }
