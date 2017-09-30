@@ -9,7 +9,7 @@ This is a collection of tips, advice, gotchas and other best practices for using
 * As Pipeline usage is adopted for more projects and more teams in an organization, common patterns should be stored in [Shared Libraries](https://jenkins.io/doc/book/pipeline/shared-libraries/).
 * When coding functions, use unique names in your pipeline script and avoid using built-in/pre-defined items (such as "build", "stage", etc).  Using pre-defined methods may result in runtime issues, such as generating a `sandbox.RejectedAccessException` error when using build job DSL. 
 * Make use of the available [Pipeline Development Tools](https://jenkins.io/doc/book/pipeline/development/#pipeline-development-tools) for debugging your Pipeline as code.
-* Use [Multibranch Pipeline](https://jenkins.io/doc/book/pipeline/multibranch/) for code collaboration, new features (developed in separate branches) are validated before merging them to the master branch. Besides, it comes with automating features out-of-the-box (webhooks).
+* Use [Multibranch Pipeline](https://jenkins.io/doc/book/pipeline/multibranch/) for project collaboration, new features (developed in separate branches) are validated before merging them to the master branch. Besides, it comes with automating features out-of-the-box (webhooks).
  
 # Parallelism
 * Within `parallel` blocks, use `node` blocks to make sure you farm out to real nodes for your parallelized work.
