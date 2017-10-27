@@ -11,7 +11,7 @@ This is a collection of tips, advice, gotchas and other best practices for using
 * Within `parallel` blocks, use `node` blocks to make sure you farm out to real nodes for your parallelized work.
 * Nested `parallel` blocks can lead to swamping your available executors, as each execution of the first `parallel` block calls multiple executions of the second `parallel` block, and so on. In general, think carefully about your parallelism and your available executors when using `parallel`.
 * The [Parallel Test Executor plugin](https://github.com/jenkinsci/parallel-test-executor-plugin) is awesome and can be immensely helpful both for distributing your test execution and for throttling your parallelism, since you define how many "buckets" your tests get divided into.
-* Don’t put `stage`s in `parallel` blocks - that just goes *weird*, breaking a lot of logic in the Stage View and elsewhere. Save yourself the pain - don't do it!
+* Don’t put `stage`s directly inside `parallel` blocks - that just goes *weird*, breaking a lot of logic in the Stage View and elsewhere. Save yourself the pain - don't do it!
 
 # `Jenkinsfile`s and Multibranch
 * Use `checkout scm` to automatically checkout current revision of branch
