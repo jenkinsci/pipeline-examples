@@ -13,9 +13,10 @@ This is a collection of tips, advice, gotchas and other best practices for using
 # Shared Libraries
 * As Pipeline usage is adopted for multiple projects and teams in an organization, common patterns should be stored in [Shared Libraries](https://jenkins.io/doc/book/pipeline/shared-libraries/). It is also an escape value for allowing out-of-sandbox execution in a safe context.
 * Pipelines [Shared Libraries can be integrated with Third Party libraries](https://jenkins.io/doc/book/pipeline/shared-libraries/#using-third-party-libraries) however the best approach is to place that integration into an **external process** (groovy or any other languages) run by `sh`/`bat` steps, for instance:
-  * sh 'java -jar myProcess.jar $args'
-  * sh 'groovy myProcess.groovy $args'
-  * sh 'python myProcess.py $args'
+
+  * `sh 'java -jar myProcess.jar $args'`
+  * `bat 'groovy myProcess.groovy $args'`
+  * `sh 'python myProcess.py $args'`
  
 # Parallelism
 * Within `parallel` blocks, use `node` blocks to make sure you farm out to real nodes for your parallelized work.
