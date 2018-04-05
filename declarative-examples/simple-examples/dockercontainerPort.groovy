@@ -10,16 +10,6 @@ pipeline {
     }
 
     stages {
-        stage('prep') {
-            steps {
-                script {
-                    env.GIT_HASH = sh(
-                        script: "git show --oneline | head -1 | cut -d' ' -f1",
-                        returnStdout: true
-                    ).trim()
-                }
-            }
-        }
         stage('build') {
             steps {
                 script {
