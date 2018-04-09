@@ -1,13 +1,10 @@
 pipeline {
-    agent any
-
-    options {
-        timestamps()
-    }
 
     environment {
         IMAGE = "custom-tutum"
     }
+
+    agent 'node-where-docker-commands-can-be-run'
 
     stages {
         stage('build') {
@@ -40,11 +37,6 @@ pipeline {
                     }
                 }
             }
-        }
-    }
-    post {
-        always {
-            cleanWs()
         }
     }
 }
