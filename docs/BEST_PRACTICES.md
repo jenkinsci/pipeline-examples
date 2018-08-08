@@ -11,13 +11,15 @@ This is a collection of tips, advice, gotchas and other best practices for using
 * Use [Multibranch Pipeline](https://jenkins.io/doc/book/pipeline/multibranch/) for project collaboration, new features (developed in separate branches) are validated before merging them to the master branch. Besides, it comes with automating features out-of-the-box (webhooks).
 
 # Shared Libraries
-* As Pipeline usage is adopted for multiple projects and teams in an organization, common patterns should be stored in [Shared Libraries](https://jenkins.io/doc/book/pipeline/shared-libraries/). It is also an escape value for allowing out-of-sandbox execution in a safe context.
-* Pipelines [Shared Libraries can be integrated with Third Party libraries](https://jenkins.io/doc/book/pipeline/shared-libraries/#using-third-party-libraries) however the best approach is to place that integration into an **external process** (groovy or any other languages) run by `sh`/`bat` steps, for instance:
+* As Pipeline usage is adopted for multiple projects and teams in an organization, common patterns should be stored in [Shared Libraries](https://jenkins.io/doc/book/pipeline/shared-libraries/). Global shared libraries are also escape valves for allowing out-of-sandbox execution in a safe context.
+* The best way to implement complex integrations or use Third-Party libraries is external scripts. These may be written in Groovy, Python, or other languages and are easy to invoke with `sh`/`bat` steps.
 
-  * `sh 'java -jar myProcess.jar $args'`
-  * `bat 'groovy myProcess.groovy $args'`
-  * `sh 'python myProcess.py $args'`
- 
+```groovy
+def output = sh 'groovy myScript.groovy $args' \\ Lets you capture the output from the script
+```
+
+* Pipeline can load [Third-Party Groovy libraries](https://jenkins.io/doc/book/pipeline/shared-libraries/#using-third-party-libraries) - but this feature should be used with caution. The libraries will be executed on-master, so they carry additional load, and run into conflicts with Pipeline internal logic or difficult-to-resolve dependency issues.
+
 # Parallelism
 * Within `parallel` blocks, use `node` blocks to make sure you farm out to real nodes for your parallelized work.
 * Nested `parallel` blocks can lead to swamping your available executors, as each execution of the first `parallel` block calls multiple executions of the second `parallel` block, and so on. In general, think carefully about your parallelism and your available executors when using `parallel`.
