@@ -26,3 +26,8 @@ We want them!
 * [Pipeline scripts collection of the Docker team](https://github.com/docker/jenkins-pipeline-scripts)
 * [Pipeline scripts collection of the Fabric8 team](https://github.com/fabric8io/jenkins-pipeline-library)
 * [Pipeline scripts collection of the Funkwerk](https://github.com/funkwerk/jenkins-workflow)
+
+
+This is a new try from a developer.
+We have to see how it works.
+
