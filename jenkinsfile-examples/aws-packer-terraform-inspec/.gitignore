@@ -1,0 +1,6 @@
+backend_config.tf
+plan.out
+.terraform/
+aws-security/files/
+manifest-*.json
+output.json
