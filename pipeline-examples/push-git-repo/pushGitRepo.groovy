@@ -15,3 +15,14 @@ sshagent (credentials: ['git-ssh-credentials-ID']) {
     sh("git tag -a some_tag -m 'Jenkins'")
     sh('git push <REPO> --tags')
 }
+
+// For SSH private key authentication and Jenkins Blue Ocean, you can take
+// advantage of the auto generated SSH key...
+
+sshagent (credentials: ['jenkins-generated-ssh-key']) {
+  sh 'git config core.sshCommand "ssh -v -o StrictHostKeyChecking=no"'
+  sh 'git checkout ${GIT_BRANCH}'
+  sh 'git pull'
+  sh "git tag ${GIT_TAG}"
+  sh 'git push origin ${GIT_BRANCH} --tags'
+}
