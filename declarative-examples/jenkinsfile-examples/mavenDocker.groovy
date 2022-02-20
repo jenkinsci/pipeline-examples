@@ -1,3 +1,5 @@
+Library ('SMA_JENKINS')
+
 pipeline {
 
   /*
