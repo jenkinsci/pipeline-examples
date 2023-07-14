@@ -87,7 +87,7 @@ node('node') {
             mail body: "project build error is here: ${env.BUILD_URL}" ,
             from: 'xxxx@yyyy.com',
             replyTo: 'yyyy@yyyy.com',
-            subject: 'project build failed',
+            subject: 'project build faillled',
             to: 'zzzz@yyyyy.com'
 
         throw err
