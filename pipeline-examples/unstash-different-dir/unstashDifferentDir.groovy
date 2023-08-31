@@ -27,9 +27,9 @@ node('second-node') {
     }
 
     // Look, no output directory under the root!
-    // pwd() outputs the current directory Pipeline is running in.
-    sh 'ls -la ${pwd()}'
+    // PWD outputs the current directory Pipeline is running in.
+    sh 'ls -la ${PWD}'
 
     // And look, output directory is there under first-stash!
-    sh 'ls -la ${pwd()}/first-stash'
+    sh 'ls -la ${PWD}/first-stash'
 }
