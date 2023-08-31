@@ -8,5 +8,7 @@ def notifySlack(text, channel) {
                                      channel   : channel,
                                      username  : "jenkins",
                                      icon_emoji: ":jenkins:"])
-    sh "curl -X POST --data-urlencode \'payload=${payload}\' ${slackURL}"
+    withEnv(["PAYLOAD=${payload}", "SLACK_URL=${slackURL}"]) {
+        sh 'curl -X POST --data-urlencode "payload=$PAYLOAD" $SLACK_URL'
+    }
 }

@@ -15,7 +15,7 @@ node {
         // via 'name' given for the field, 'variable:'
         configFileProvider([configFile(fileId: mycfg_file, variable: 'PACKER_OPTIONS')]) {
             echo " =========== ^^^^^^^^^^^^ Reading config from pipeline script "
-            sh "cat ${env.PACKER_OPTIONS}"
+            sh 'cat ${PACKER_OPTIONS}'
             echo " =========== ~~~~~~~~~~~~ ============ "
  
             // Access to config file opens up other possibilities like
@@ -23,7 +23,7 @@ node {
             // for example, to set generic options that can be used for generating 
             // binary images using packer.
             echo " =========== ^^^^^^^^^^^^ Reading config via Python... "
-            sh "python build_image.py ${env.PACKER_OPTIONS}"
+            sh 'python build_image.py ${PACKER_OPTIONS}'
             echo " =========== ~~~~~~~~~~~~ ============ "
         }
     }
